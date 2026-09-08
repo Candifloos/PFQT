@@ -18,6 +18,7 @@ n = lambda N: N/R_TF(N)**3
 v = lambda N: 2*hbar/m_K * np.sqrt(np.pi * a_s * n(N)) #Speed of sound
 L_h = lambda N: 1/np.sqrt(8*np.pi*n(N)*a_s) #healing length
 gamma = lambda N: n(N) * a_s**3
+frac_TF = lambda N: N * a_s / a_ho
 print(f"Problem 1)")
 N = 10000
 print(f"{N = }")
@@ -25,6 +26,7 @@ print(f"\tR_TF = {R_TF(N):.4e} m")
 print(f"\tv = {v(N):.4e} m/s")
 print(f"\tL_h = {L_h(N):.4e} m")
 print(f"\tgamma = {gamma(N):.4e}")
+print(f"TF param = {frac_TF(N):.3f}")
 
 N = 100000
 print(f"{N = }")
@@ -32,6 +34,7 @@ print(f"\tR_TF = {R_TF(N):.4e} m")
 print(f"\tv = {v(N):.4e} m/s")
 print(f"\tL_h = {L_h(N):.4e} m")
 print(f"\tgamma = {gamma(N):.4e}")
+print(f"TF param = {frac_TF(N):.3f}")
 
 N = 1000000
 print(f"{N = }")
@@ -39,3 +42,4 @@ print(f"\tR_TF = {R_TF(N):.4e} m")
 print(f"\tv = {v(N):.4e} m/s")
 print(f"\tL_h = {L_h(N):.4e} m")
 print(f"\tgamma = {gamma(N):.4e}")
+print(f"TF param = {frac_TF(N):.3f}")
