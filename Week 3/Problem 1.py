@@ -8,13 +8,16 @@ c = 299792458 #m/s
 
 a_0 = 5.29 * 10**(-11) #m
 a_s = 10 * a_0 #scattering length
-w_ho = 472 #1/s #harmonic oscillator potential
+w_ho = 2*np.pi * 472 #1/s #harmonic oscillator potential
 # m_K = 39*931.5e9 #eV #39K
 m_K = 6.4761e-26 #kg #39K
 
 a_ho = np.sqrt(hbar/w_ho/m_K)
 R_TF = lambda N: a_ho * (15*N*a_s/a_ho)**(1/5)
-n = lambda N: N/R_TF(N)**3
+mu = lambda N: 1/2 * m_K * w_ho**2 * R_TF(N)**2
+g = 4*np.pi*hbar**2 * a_s/m_K
+n = lambda N: mu(N)/g
+# n = lambda N: N/R_TF(N)**3
 v = lambda N: 2*hbar/m_K * np.sqrt(np.pi * a_s * n(N)) #Speed of sound
 L_h = lambda N: 1/np.sqrt(8*np.pi*n(N)*a_s) #healing length
 gamma = lambda N: n(N) * a_s**3
