@@ -10,16 +10,16 @@ eps_0 = 8.854 * 10**(-12)                 #F/m
 k_B = 1.380649 * 10**(-23)              #m^2*kg / (s^2 * K)
 
 calc_a = lambda n: (3 / (4 * np.pi * n))**(1/3)
-calc_omega_p = lambda Q, m: np.sqrt(Q**2 * n / (eps_0 * m))
-calc_rQM = lambda Q, m: np.sqrt(hbar / (8 * np.pi * calc_omega_p(Q,m) * m))
-calc_E_kin_zero = lambda Q, m: 0.5 * calc_omega_p(Q,m) * hbar
+calc_omega_p = lambda Q, m, n: np.sqrt(Q**2 * n / (eps_0 * m))
+calc_rQM = lambda Q, m, n: np.sqrt(hbar / (4 * calc_omega_p(Q,m, n) * m))
+calc_E_kin_zero = lambda Q, m, n: 0.5 * calc_omega_p(Q,m, n) * hbar
 calc_E_kin_temp = lambda T: k_B * T
 
 
 print(f"Exercise 1.a)")
 a = calc_a(n)
-omega_p = calc_omega_p(e, m_Ca)
-r_QM = calc_rQM(e, m_Ca)
+omega_p = calc_omega_p(e, m_Ca, n)
+r_QM = calc_rQM(e, m_Ca, n)
 
 print(f"r_QM = {r_QM:.3e} m, \t a = {a:.3e} m \n")
 
@@ -30,7 +30,7 @@ print(f"Critical temperature = {T_crit:.3e} K\n")
 
 
 print(f"Exercise 1.c)")
-E_kin_zero = calc_E_kin_zero(e, m_Ca)
+E_kin_zero = calc_E_kin_zero(e, m_Ca, n)
 E_kin_temp = calc_E_kin_temp(T_crit)
 print(f"Zero point energy = {E_kin_zero:.3e} J, \t Thermal kinetic energy = {E_kin_temp:.3e} J\n")
 
@@ -39,32 +39,32 @@ print(f"Exercise 2)")
 n_e = 10**(23)*10**(2*3)                  #m^-3
 a = calc_a(n_e)
 
-omega_p = calc_omega_p(e, m_e)
-r_QM = calc_rQM(e, m_e)
+omega_p = calc_omega_p(e, m_e, n_e)
+r_QM = calc_rQM(e, m_e, n_e)
 
 print(f"r_QM = {r_QM:.3e} m, \t a = {a:.3e} m \n")
 
 
 print(f"Exercise 3.a)")
-rho = 10**(10)* 10**(-3) * 10**(2*6)                #kg / m^3
-n = rho / m_Fe
+rho = 10**(10) * 10**(-3) * 10**(2*3)                #kg / m^3
+n_Fe = rho / m_Fe
 Q = 26 * e
 
-a = calc_a(n)
-omega_p = calc_omega_p(Q, m_Fe)
-r_QM = calc_rQM(Q, m_Fe)
+a = calc_a(n_Fe)
+omega_p = calc_omega_p(Q, m_Fe, n_Fe)
+r_QM = calc_rQM(Q, m_Fe, n_Fe)
 
 print(f"r_QM = {r_QM:.3e} m, \t a = {a:.3e} m \n")
 
 print(f"Exercise 3.b)")
 T = 10**7                               #K
 E_kin_temp = calc_E_kin_temp(T)
-E_kin_zero = calc_E_kin_zero(Q, m_Fe)
+E_kin_zero = calc_E_kin_zero(Q, m_Fe, n_Fe)
 
 print(f"Zero point energy = {E_kin_zero:.3e} J, \t Thermal kinetic energy = {E_kin_temp:.3e} J\n")
 
 
 print(f"Exercise 3.c)")
-Gamma = Q**2 / (4*np.pi * eps_0 * a * E_kin_temp)
+Gamma = Q**2 / (4*np.pi * eps_0 * a * (E_kin_temp + E_kin_zero))
 print(f"Gamma = {Gamma:.3e} \n")
 
